@@ -17,8 +17,11 @@ const common_1 = require("@nestjs/common");
 const create_note_dto_1 = require("./dto/create-note.dto");
 const update_note_dto_1 = require("./dto/update-note.dto");
 const notes_service_1 = require("./notes.service");
+const validations_1 = require("./validations");
 let NotesController = class NotesController {
     create(createNoteDto) {
+        if (!(0, validations_1.validationCreate)(createNoteDto))
+            throw new common_1.HttpException("Invalid note", 400);
         return notes_service_1.NotesService.create(createNoteDto);
     }
     getAll() {
@@ -28,12 +31,20 @@ let NotesController = class NotesController {
         return notes_service_1.NotesService.getStats();
     }
     getOne(id) {
+        if (!(0, validations_1.checkId)(+id))
+            throw new common_1.HttpException("Not founded", 404);
         return notes_service_1.NotesService.getOne(+id);
     }
     update(updateNoteDto, id) {
+        if (!(0, validations_1.validationCreate)(updateNoteDto))
+            throw new common_1.HttpException("Invalid note", 400);
+        if (!(0, validations_1.checkId)(+id))
+            throw new common_1.HttpException("Not founded", 404);
         return notes_service_1.NotesService.update(updateNoteDto, +id);
     }
     delete(id) {
+        if (!(0, validations_1.checkId)(+id))
+            throw new common_1.HttpException("Not founded", 404);
         return notes_service_1.NotesService.delete(+id);
     }
 };
@@ -43,44 +54,44 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_note_dto_1.CreateNoteDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Object)
 ], NotesController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Array)
 ], NotesController.prototype, "getAll", null);
 __decorate([
-    (0, common_1.Get)('/stats'),
+    (0, common_1.Get)("/stats"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Array)
 ], NotesController.prototype, "getStats", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)(":id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Object)
 ], NotesController.prototype, "getOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
+    (0, common_1.Patch)(":id"),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [update_note_dto_1.UpdateNoteDto, String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Object)
 ], NotesController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(":id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Array)
 ], NotesController.prototype, "delete", null);
 NotesController = __decorate([
-    (0, common_1.Controller)('notes')
+    (0, common_1.Controller)("notes")
 ], NotesController);
 exports.NotesController = NotesController;
 //# sourceMappingURL=notes.controller.js.map

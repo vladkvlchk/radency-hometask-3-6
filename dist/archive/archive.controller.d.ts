@@ -1,26 +1,6 @@
+import { Note } from 'src/helpers/types';
 export declare class ArchiveController {
-    getAll(): {
-        id: number;
-        name: string;
-        created: string;
-        category: string;
-        content: string;
-        dates: any[];
-    }[];
-    toArchive(id: string): {
-        id: number;
-        name: string;
-        created: string;
-        category: string;
-        content: string;
-        dates: any[];
-    }[];
-    fromArchive(id: string): {
-        id: number;
-        name: string;
-        created: string;
-        category: string;
-        content: string;
-        dates: any[];
-    }[];
+    getAll(): Note[];
+    toArchive(id: string): Note[];
+    fromArchive(id: string): Note[];
 }

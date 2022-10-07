@@ -68,15 +68,15 @@ let notes: Note[] = [
 
 @Injectable()
 export class NotesService {
-  static getAll() : Note[] {
+  static getAll(): Note[] {
     return notes;
   }
 
-  static getOne(id: number) : Note {
+  static getOne(id: number): Note | undefined {
     return notes.find((obj) => obj.id === id);
   }
 
-  static create(createNoteDto: CreateNoteDto):Note[]{
+  static create(createNoteDto: CreateNoteDto): Note {
     const date = new Date();
     const created = `${date.getDate()}/${
       date.getMonth() + 1
@@ -98,17 +98,19 @@ export class NotesService {
       }
     }
 
+    const id = Math.floor(Math.random() * 100000);
+
     notes.push({
-      id: Math.floor(Math.random() * 100000),
+      id: id,
       ...createNoteDto,
       created: created,
       dates: [],
     });
 
-    return notes;
+    return notes.find((obj) => obj.id === id);
   }
 
-  static getStats() : StatsItem[]{
+  static getStats(): StatsItem[] {
     let stats: StatsItem[] = [];
 
     stats.push(sumOfCategory("Task"));
@@ -121,7 +123,7 @@ export class NotesService {
     return stats;
   }
 
-  static update(updateNoteDto: UpdateNoteDto, id: number) : Note | Boolean{
+  static update(updateNoteDto: UpdateNoteDto, id: number): Note | Boolean {
     const note = {
       id: id,
       name: updateNoteDto.name,
@@ -145,7 +147,7 @@ export class NotesService {
       }
     }
 
-    const oldNote : Note = notes.find((obj) => obj.id === note.id);
+    const oldNote: Note = notes.find((obj) => obj.id === note.id);
     if (!oldNote) return false;
 
     notes = notes.filter((obj) => obj.id !== oldNote.id);
@@ -162,11 +164,11 @@ export class NotesService {
     return notes.find((obj: any) => obj.id === oldNote.id);
   }
 
-  static delete(id: number) : Note[] {
+  static delete(id: number): Note[] {
     return (notes = notes.filter((obj: any) => obj.id !== id));
   }
 
-  static addFromArchive(note: Note) : void {
+  static addFromArchive(note: Note): void {
     notes.push(note);
   }
 }

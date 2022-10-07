@@ -12,58 +12,58 @@ const sumOfCategory_1 = require("../helpers/sumOfCategory");
 let notes = [
     {
         id: 1,
-        name: 'Shopping list',
-        created: '20/7/2021',
-        category: 'Task',
-        content: 'Tomatoes, bread',
+        name: "Shopping list",
+        created: "20/7/2021",
+        category: "Task",
+        content: "Tomatoes, bread",
         dates: [],
     },
     {
         id: 2,
-        name: 'The Theory of Evolution',
-        created: '27/7/2021',
-        category: 'Random Thought',
-        content: 'The Theory of Evolution is one of the best-substantiated theories in the history of science',
+        name: "The Theory of Evolution",
+        created: "27/7/2021",
+        category: "Random Thought",
+        content: "The Theory of Evolution is one of the best-substantiated theories in the history of science",
         dates: [],
     },
     {
         id: 3,
-        name: 'New Feature',
-        created: '5/4/2021',
-        category: 'Idea',
-        content: 'Implement new features on POS terminals',
+        name: "New Feature",
+        created: "5/4/2021",
+        category: "Idea",
+        content: "Implement new features on POS terminals",
         dates: [],
     },
     {
         id: 4,
-        name: 'William Gaddis',
-        created: '7/4/2021',
-        category: 'Quote',
+        name: "William Gaddis",
+        created: "7/4/2021",
+        category: "Quote",
         content: "Power doesn't come to those who were born strongest, or fastest, or smartest. No. It comes to those who will do anything to achieve it",
         dates: [],
     },
     {
         id: 5,
-        name: 'Books',
-        created: '15/4/2021',
-        category: 'Task',
-        content: 'The Lean Startup',
+        name: "Books",
+        created: "15/4/2021",
+        category: "Task",
+        content: "The Lean Startup",
         dates: [],
     },
     {
         id: 6,
-        name: 'Dentist',
-        created: '3/5/2021',
-        category: 'Task',
+        name: "Dentist",
+        created: "3/5/2021",
+        category: "Task",
         content: "I'm gonna have a dentist appointment on the 3/5/2021, I moved it from 7/8/2022",
-        dates: ['3/5/2021', '7/8/2022'],
+        dates: ["3/5/2021", "7/8/2022"],
     },
     {
         id: 7,
-        name: 'Motivation',
-        created: '31/5/2022',
-        category: 'Quote',
-        content: 'The World belongs to those who show up',
+        name: "Motivation",
+        created: "31/5/2022",
+        category: "Quote",
+        content: "The World belongs to those who show up",
         dates: [],
     },
 ];
@@ -90,15 +90,16 @@ let NotesService = class NotesService {
                 break;
             }
         }
-        notes.push(Object.assign(Object.assign({ id: Math.floor(Math.random() * 100000) }, createNoteDto), { created: created, dates: [] }));
-        return notes;
+        const id = Math.floor(Math.random() * 100000);
+        notes.push(Object.assign(Object.assign({ id: id }, createNoteDto), { created: created, dates: [] }));
+        return notes.find((obj) => obj.id === id);
     }
     static getStats() {
         let stats = [];
-        stats.push((0, sumOfCategory_1.sumOfCategory)('Task'));
-        stats.push((0, sumOfCategory_1.sumOfCategory)('Random Thought'));
-        stats.push((0, sumOfCategory_1.sumOfCategory)('Idea'));
-        stats.push((0, sumOfCategory_1.sumOfCategory)('Quote'));
+        stats.push((0, sumOfCategory_1.sumOfCategory)("Task"));
+        stats.push((0, sumOfCategory_1.sumOfCategory)("Random Thought"));
+        stats.push((0, sumOfCategory_1.sumOfCategory)("Idea"));
+        stats.push((0, sumOfCategory_1.sumOfCategory)("Quote"));
         stats = stats.filter((obj) => obj.active || obj.archived);
         return stats;
     }
@@ -106,7 +107,7 @@ let NotesService = class NotesService {
         const note = {
             id: id,
             name: updateNoteDto.name,
-            created: '',
+            created: "",
             category: updateNoteDto.category,
             content: updateNoteDto.content,
             dates: [],
