@@ -1,8 +1,9 @@
 import { ArchiveService } from "src/archive/archive.service";
 import { NotesService } from "src/notes/notes.service";
+import { StatsItem } from "./types";
 
 
-export function sumOfCategory(category : "Task" | "Random Thought" | "Idea" | "Quote"){
+export function sumOfCategory(category : "Task" | "Random Thought" | "Idea" | "Quote") : StatsItem{
     const items = NotesService.getAll();
     const archive = ArchiveService.getAll();
 

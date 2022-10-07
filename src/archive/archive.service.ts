@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { Note } from 'src/helpers/types';
 
-let notes = [
+let notes : Note[] = [
   {
     id: 52348,
     name: 'George C. Marshall',
@@ -13,17 +14,17 @@ let notes = [
 
 @Injectable()
 export class ArchiveService {
-  static getAll() {
+  static getAll() : Note[] {
     return notes;
   }
-  static add(note: any) {
+  static add(note: any) : Note[]{
     notes.push(note);
     return notes;
   }
 
-  static remove(id: number) {
-    const note = notes.find((obj: any) => obj.id === id);
-    notes = notes.filter((obj: any) => obj.id !== id);
+  static remove(id: number) : Note {
+    const note = notes.find((obj) => obj.id === id);
+    notes = notes.filter((obj) => obj.id !== id);
     return note
   }
 }
