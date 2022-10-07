@@ -21,7 +21,8 @@ export class NotesController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(@Body() createNoteDto: CreateNoteDto): Note {
-    if(!validationCreate(createNoteDto)) throw new HttpException("Invalid note", 400);
+    if (!validationCreate(createNoteDto))
+      throw new HttpException("Invalid note", 400);
     return NotesService.create(createNoteDto);
   }
 
@@ -37,7 +38,7 @@ export class NotesController {
 
   @Get(":id")
   getOne(@Param("id") id: string): Note {
-    if(!checkId(+id)) throw new HttpException("Not founded", 404);
+    if (!checkId(+id)) throw new HttpException("Not founded", 404);
     return NotesService.getOne(+id);
   }
 
@@ -46,14 +47,15 @@ export class NotesController {
     @Body() updateNoteDto: UpdateNoteDto,
     @Param("id") id: string
   ): Note | Boolean {
-    if(!validationCreate(updateNoteDto)) throw new HttpException("Invalid note", 400);
-    if(!checkId(+id)) throw new HttpException("Not founded", 404);
+    if (!validationCreate(updateNoteDto))
+      throw new HttpException("Invalid note", 400);
+    if (!checkId(+id)) throw new HttpException("Not founded", 404);
     return NotesService.update(updateNoteDto, +id);
   }
 
   @Delete(":id")
   delete(@Param("id") id: string): Note[] {
-    if(!checkId(+id)) throw new HttpException("Not founded", 404);
+    if (!checkId(+id)) throw new HttpException("Not founded", 404);
     return NotesService.delete(+id);
   }
 }
